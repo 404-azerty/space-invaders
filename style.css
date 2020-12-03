@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+body {
+  font-family: 'Major Mono Display', monospace;
+}
+h1, h2 {
+  text-align: center;
+}
+h1 {
+  font-weight: bold;
+}
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid black;
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  background: url(background.png);
+  animation: background-move 10s linear infinite;
+}
+@keyframes background-move {
+  from {
+    background-position-y: 0;
+  }
+  to {
+    background-position-y: 288px;
+  }
+}
+.grid div {
+  width: 25px;
+  height: 25px;
+}
+.unicorn {
+  background: url(unicorn.png);
+  background-position: center;
+  background-size: contain;
+}
+.alien {
+  background: url(alien.png);
+  background-position: center;
+  background-size: contain;
+}
+.boom {
+  background-color: red;
+}
+.laser {
+  background-color: orange;
+}
