@@ -3,6 +3,7 @@ let allDivs;
 let aliens = [];
 let unicornPosition = 229;
 let alienDirection = 1;
+let width = 20;
 
 function createGridAndAliens() {
   let indexAttr = 0;
@@ -98,3 +99,37 @@ function moveAliens() {
   }
 }
 movingAliens = setInterval(() => moveAliens(), 500);
+
+function fire(event) {
+  let laser;
+  let laserInProgress = unicornPosition;
+
+  function moveLaser() {
+    allDivs[laserInProgress].classList.remove(`laser`);
+    laserInProgress -= width;
+    allDivs[laserInProgress].classList.add(`laser`);
+
+    // destruction de l'alien
+    if (allDivs[laserInProgress].classList.contains(`alien`)) {
+      allDivs[laserInProgress].classList.remove(`laser`);
+      allDivs[laserInProgress].classList.remove(`alien`);
+      allDivs[laserInProgress].classList.add(`boom`);
+
+      aliens = aliens.filter((alien) => alien !== laserInProgress);
+      setTimeout(() => allDivs[laserInProgress].classList.remove(`boom`), 200);
+      clearInterval(laser);
+    }
+
+    // gestion de la sortie d'écran du laser
+    if (laserInProgress < width) {
+      clearInterval(laser);
+      setTimeout(() => allDivs[laserInProgress].classList.remove(`laser`), 100);
+    }
+  }
+
+  if (event.keyCode === 32) {
+    laser = setInterval(() => moveLaser(), 100);
+  }
+}
+
+document.addEventListener(`keyup`, fire);
