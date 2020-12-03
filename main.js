@@ -1,4 +1,6 @@
 const container = document.querySelector(`.grid`);
+const score = document.querySelector(`h2`);
+let point = 0;
 let allDivs;
 let aliens = [];
 let unicornPosition = 229;
@@ -97,8 +99,22 @@ function moveAliens() {
   for (let index = 0; index < aliens.length; index++) {
     allDivs[aliens[index]].classList.add(`alien`);
   }
+
+  // gestion de la ligne de base
+  if (allDivs[unicornPosition].classList.contains(`alien`, `unicorn`)) {
+    score.textContent = `game over`;
+    allDivs[unicornPosition].classList.add(`boom`);
+    clearInterval(movingAliens);
+  }
+
+  for (let index = 0; index < aliens.length; index++) {
+    if (aliens[index] > allDivs.length - width) {
+      score.textContent = `game over`;
+      clearInterval(movingAliens);
+    }
+  }
 }
-movingAliens = setInterval(() => moveAliens(), 500);
+let movingAliens = setInterval(() => moveAliens(), 500);
 
 function fire(event) {
   let laser;
@@ -118,6 +134,15 @@ function fire(event) {
       aliens = aliens.filter((alien) => alien !== laserInProgress);
       setTimeout(() => allDivs[laserInProgress].classList.remove(`boom`), 200);
       clearInterval(laser);
+
+      //gestion du score
+      point++;
+      if (point === 36) {
+        score.textContent = `you win`;
+        clearInterval(laser);
+      } else {
+        score.textContent = `score : ${point}`;
+      }
     }
 
     // gestion de la sortie d'écran du laser
@@ -127,9 +152,6 @@ function fire(event) {
     }
   }
 
-  if (event.keyCode === 32) {
-    laser = setInterval(() => moveLaser(), 100);
-  }
+  if (event.keyCode === 32) laser = setInterval(() => moveLaser(), 100);
 }
-
 document.addEventListener(`keyup`, fire);

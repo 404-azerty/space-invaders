@@ -43,8 +43,29 @@ h1 {
 }
 .boom {
   background-color: red;
+  border-radius: 50%;
+  animation: .2s linear infinite blink-effect;
+}
+@keyframes blink-effect {
+  0% {
+    visibility: hidden;
+  }
+  50% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
 }
 .laser {
-  background-color: orange;
-  border-radius: 50%;
+  position: relative;
+}
+.laser::after {
+  position: absolute;
+  content: " ";
+  width: 3px;
+  height: 25px;
+  background: linear-gradient(0deg, red, orange,yellow, green, blue, purple);
+  left: 50%;
+  transform: translateX(-50%);
 }
