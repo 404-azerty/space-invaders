@@ -48,16 +48,6 @@ createGridAndAliens();
 
 function moveUnicorn(event) {
   allDivs[unicornPosition].classList.remove(`unicorn`);
-  // gestion du déplacement de la licorne
-  // if (event.keyCode === 37) {
-  //   if (unicornPosition > 220) {
-  //     unicornPosition -= 1;
-  //   }
-  // } else if (event.keyCode === 39) {
-  //   if (unicornPosition < 239) {
-  //     unicornPosition += 1;
-  //   }
-  // }
   if (event.keyCode === 37 && unicornPosition > 220) {
     unicornPosition -= 1;
   } else if (event.keyCode === 39 && unicornPosition < 239) {
